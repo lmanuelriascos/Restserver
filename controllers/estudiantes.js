@@ -1,5 +1,7 @@
 const  { response, request } = require('express');
 
+const Estudiante = require('../models/estudiante');
+
 
 const estudiantesGet =(req = request, res = response)=>  {
 
@@ -23,9 +25,15 @@ const estudiantesPut = (req, res = response)=> {
 
 }
 
-const estudiantesPost = (req, res = response)=> {
+const estudiantesPost = async(req, res = response)=> {
+
+    const body =req.body;
+    const estudiante = new Estudiante (body);
+
+    await estudiante.save();
     res.json({
-        msg: 'Manolete post-controlador'
+        msg: 'Manolete post-controlador',
+        estudiante
     });
 
 }
